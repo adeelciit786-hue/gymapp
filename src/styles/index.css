@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-theme='dark'] {
+  --bg: 16 27 42; --bg2: 23 38 56; --card: 32 49 70; --ink: 245 244 240; --mute: 130 148 170; --brand: 255 112 73; --gold: 232 184 109;
+  --line: 255 255 255 / 0.08; --glass: 32 49 70 / 0.6;
+}
+:root[data-theme='light'] {
+  --bg: 245 244 240; --bg2: 236 233 226; --card: 255 255 255; --ink: 16 27 42; --mute: 90 106 128; --brand: 232 84 42; --gold: 176 128 40;
+  --line: 16 27 42 / 0.1; --glass: 255 255 255 / 0.75;
+}
+html { scroll-behavior: smooth; }
+body { @apply bg-bg text-ink font-sans antialiased; overflow-x: hidden; transition: background-color .3s; }
+h1,h2,h3,h4,.font-display { font-family: 'Space Grotesk', sans-serif; }
+*:focus-visible { outline: 2px solid rgb(var(--brand)); outline-offset: 2px; border-radius: 6px; }
+::selection { background: rgb(var(--brand) / .4); }
+
+@layer components {
+  .glass { background: rgb(var(--glass)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgb(var(--line)); }
+  .surface { @apply rounded-2xl; background: rgb(var(--card)); border: 1px solid rgb(var(--line)); }
+  .lift { transition: transform .3s ease, box-shadow .3s ease, border-color .3s; }
+  .lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -18px rgb(0 0 0 / .5); border-color: rgb(var(--brand) / .4); }
+  .h-display { @apply font-display font-bold uppercase leading-[0.95]; letter-spacing: -0.02em; }
+  .eyebrow { @apply text-xs font-semibold uppercase text-brand; letter-spacing: .22em; }
+  .input { @apply w-full rounded-xl px-4 py-3 min-h-[44px] text-sm text-ink placeholder:text-mute/70 outline-none transition; background: rgb(var(--bg) / .6); border: 1px solid rgb(var(--line)); }
+  .input:focus { border-color: rgb(var(--brand)); box-shadow: 0 0 0 3px rgb(var(--brand) / .2); }
+  .skeleton { background: linear-gradient(90deg, rgb(var(--card)) 25%, rgb(var(--bg2)) 50%, rgb(var(--card)) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 1rem; }
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { scrollbar-width: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+.recharts-wrapper, .recharts-surface { outline: none; }
